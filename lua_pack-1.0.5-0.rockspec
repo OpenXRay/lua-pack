@@ -1,9 +1,8 @@
 package="lua_pack"
-version="1.0.4-0"
+version="1.0.5-0"
 source = {
-   url = "https://github.com/mashape/lua-pack/archive/1.0.4.tar.gz",
-   dir = "lua-pack-1.0.4",
-   tag = "1.0.4"
+   url = "git://github.com/mashape/lua-pack",
+   tag = "1.0.5"
 }
 description = {
    summary = "This is a simple Lua library for packing and unpacking binary data",

@@ -19,6 +19,8 @@ This is a simple Lua library for packing and unpacking binary data.
 #define	OP_UINT		'I'		/* unsigned int */
 #define	OP_LONG		'l'		/* long */
 #define	OP_ULONG	'L'		/* unsigned long */
+#define	OP_ULONGLONG	'Q'		/* unsigned long long */
+#define	OP_LONGLONG	'q'		/* long long */
 #define	OP_LITTLEENDIAN	'<'		/* little endian */
 #define	OP_BIGENDIAN	'>'		/* big endian */
 #define	OP_NATIVE	'='		/* native endian */
@@ -159,6 +161,8 @@ static int l_unpack(lua_State *L) 		/** unpack(s,f,[init]) */
    UNPACKNUMBER(OP_UINT, unsigned int)
    UNPACKNUMBER(OP_LONG, long)
    UNPACKNUMBER(OP_ULONG, unsigned long)
+   UNPACKNUMBER(OP_LONGLONG, long long)
+   UNPACKNUMBER(OP_ULONGLONG, unsigned long long)
    case OP_BINMSB:
      {
        luaL_Buffer buf;
@@ -298,6 +302,8 @@ static int l_pack(lua_State *L) 		/** pack(f,...) */
    PACKNUMBER(OP_UINT, unsigned int)
    PACKNUMBER(OP_LONG, long)
    PACKNUMBER(OP_ULONG, unsigned long)
+   PACKNUMBER(OP_ULONGLONG, unsigned long long)
+   PACKNUMBER(OP_LONGLONG, long long)
    case OP_BINMSB:
      {
        unsigned char sbyte = 0;

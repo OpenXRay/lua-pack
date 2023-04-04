@@ -114,7 +114,7 @@ static int l_unpack(lua_State *L) 		/** unpack(s,f,[init]) */
  size_t len;
  const char *s=luaL_checklstring(L,1,&len);
  const char *f=luaL_checkstring(L,2);
- int i=luaL_optnumber(L,3,1)-1;
+ int i=(int)luaL_optnumber(L,3,1)-1;
  int n=0;
  int swap=0;
  lua_pushnil(L);
@@ -239,7 +239,7 @@ static int l_unpack(lua_State *L) 		/** unpack(s,f,[init]) */
   }
  }
 done:
- lua_pushnumber(L,i+1);
+ lua_pushnumber(L,(lua_Number)i+1);
  lua_replace(L,-n-2);
  return n+1;
 }

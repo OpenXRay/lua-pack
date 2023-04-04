@@ -1,8 +1,19 @@
+/*
+* lpack.c
+* a Lua library for packing and unpacking binary data
+* Luiz Henrique de Figueiredo <lhf@tecgraf.puc-rio.br>
+* 29 Jun 2007 19:27:20
+* This code is hereby placed in the public domain.
+* with contributions from Ignacio Castaсo <castanyo@yahoo.es> and
+* Roberto Ierusalimschy <roberto@inf.puc-rio.br>.
+*/ 
+
 /***
 This is a simple Lua library for packing and unpacking binary data.
 @license MIT
 @module lua_pack
 */
+
 #define	OP_ZSTRING	'z'		/* zero-terminated string */
 #define	OP_BSTRING	'p'		/* string preceded by length byte */
 #define	OP_WSTRING	'P'		/* string preceded by length word */
@@ -12,9 +23,9 @@ This is a simple Lua library for packing and unpacking binary data.
 #define	OP_DOUBLE	'd'		/* double */
 #define	OP_NUMBER	'n'		/* Lua number */
 #define	OP_CHAR		'c'		/* char */
-#define	OP_BYTE		'C'		/* byte = unsigned char */
-#define	OP_SHORT	's'		/* short */
-#define	OP_USHORT	'S'		/* unsigned short */
+#define	OP_BYTE		'b'		/* byte = unsigned char */
+#define	OP_SHORT	'h'		/* short */
+#define	OP_USHORT	'H'		/* unsigned short */
 #define	OP_INT		'i'		/* int */
 #define	OP_UINT		'I'		/* unsigned int */
 #define	OP_LONG		'l'		/* long */
@@ -390,13 +401,11 @@ static const luaL_Reg R[] =
 
 int luaopen_lua_pack(lua_State *L)
 {
- lua_newtable(L);
-
- lua_pushcfunction(L, &l_pack);
- lua_setfield(L, -2, "pack");
-
- lua_pushcfunction(L, &l_unpack);
- lua_setfield(L, -2, "unpack");
-
- return 1;
+#ifdef USE_GLOBALS
+ lua_register(L,"bpack",l_pack);
+ lua_register(L,"bunpack",l_unpack);
+#else
+ luaL_openlib(L, LUA_STRLIBNAME, R, 0);
+#endif
+ return 0;
 }

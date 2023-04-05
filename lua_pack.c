@@ -392,7 +392,7 @@ static int l_pack(lua_State *L) 		/** pack(f,...) */
  return 1;
 }
 
-static const luaL_Reg R[] =
+static const luaL_Reg packlib[] =
 {
 	{"pack",	l_pack},
 	{"unpack",	l_unpack},
@@ -405,7 +405,7 @@ int luaopen_lua_pack(lua_State *L)
  lua_register(L,"bpack",l_pack);
  lua_register(L,"bunpack",l_unpack);
 #else
- luaL_openlib(L, LUA_STRLIBNAME, R, 0);
+ luaL_openlib(L, LUA_STRLIBNAME, packlib, 0);
 #endif
  return 0;
 }
